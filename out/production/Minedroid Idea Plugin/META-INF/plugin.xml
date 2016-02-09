@@ -1,7 +1,7 @@
 <idea-plugin version="2">
     <id>com.onkiup.minedroid</id>
     <name>MineDroid GUI</name>
-    <version>1.0.4</version>
+    <version>1.3.2</version>
     <vendor email="chedim@chedim.com" url="http://onkiup.com">OnKiUp</vendor>
 
     <description><![CDATA[
@@ -11,6 +11,7 @@
     <change-notes><![CDATA[
       <ul>
         <li><b>1.0.4</b> — Some fixes and new XSD Schema.
+        <li><b>1.3.2</b> — Fixes in XSD schemas; reference provider for XML files
       </ul>
     ]]>
     </change-notes>

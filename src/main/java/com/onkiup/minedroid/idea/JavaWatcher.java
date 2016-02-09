@@ -34,8 +34,7 @@ public class JavaWatcher implements ModuleComponent, VirtualFileListener {
 
     @Override
     public void fileCreated(@NotNull VirtualFileEvent virtualFileEvent) {
-        String x = new String();
-        x.length();
+
     }
 
     @Override
