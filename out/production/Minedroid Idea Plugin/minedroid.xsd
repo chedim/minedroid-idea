@@ -1,0 +1,332 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://onkiup.com/minecraft/xml"
+           xmlns:mc="http://onkiup.com/minecraft/xml">
+    <!-- Custom types -->
+    <xs:simpleType name="link">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="@(minedroid:)?\w+/[\w_\d]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="id">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="@(minedroid:)?\w+/[\w_\d]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="relative_link">
+        <xs:union memberTypes="mc:link">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="parent"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
+    <xs:simpleType name="dimen">
+        <xs:union>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="(wrap_content)|(match_parent)|(\d+)|(@(minedroid:)?\w+/[\w_\d]+)"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="wrap_content"/>
+                    <xs:enumeration value="match_parent"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
+    <xs:simpleType name="ratio">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d+:\d+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="color">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[\da-fA-F]{0,8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="string">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(@(minedroid:)?\w+/[\w_\d]+|.*)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="drag_area">
+        <xs:restriction base="mc:id">
+            <xs:pattern value="(screen|@(minedroid:)?\w+/[\w_\d]+)"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Enums -->
+    <xs:simpleType name="HGravity">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="left"/>
+            <xs:enumeration value="center"/>
+            <xs:enumeration value="right"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="VGravity">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="top"/>
+            <xs:enumeration value="center"/>
+            <xs:enumeration value="bottom"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="orientation">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="horizontal"/>
+            <xs:enumeration value="vertical"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <!-- Views -->
+    <xs:complexType name="view">
+        <xs:attribute name="background" type="mc:link"/>
+        <xs:attribute name="width" type="mc:dimen"/>
+        <xs:attribute name="height" type="mc:dimen"/>
+
+        <xs:attribute name="alignLeft" type="mc:relative_link"/>
+        <xs:attribute name="toRightOf" type="mc:relative_link"/>
+        <xs:attribute name="alignCenter" type="mc:relative_link"/>
+        <xs:attribute name="alignRight" type="mc:relative_link"/>
+        <xs:attribute name="toLeftOf" type="mc:relative_link"/>
+
+        <xs:attribute name="alignTop" type="mc:relative_link"/>
+        <xs:attribute name="below" type="mc:relative_link"/>
+        <xs:attribute name="alignMiddle" type="mc:relative_link"/>
+        <xs:attribute name="alignBottom" type="mc:relative_link"/>
+        <xs:attribute name="above" type="mc:relative_link"/>
+
+        <xs:attribute name="margin" type="mc:dimen"/>
+        <xs:attribute name="margin-left" type="mc:dimen"/>
+        <xs:attribute name="margin-right" type="mc:dimen"/>
+        <xs:attribute name="margin-top" type="mc:dimen"/>
+        <xs:attribute name="margin-bottom" type="mc:dimen"/>
+
+        <xs:attribute name="padding" type="mc:dimen"/>
+        <xs:attribute name="padding-left" type="mc:dimen"/>
+        <xs:attribute name="padding-right" type="mc:dimen"/>
+        <xs:attribute name="padding-top" type="mc:dimen"/>
+        <xs:attribute name="padding-bottom" type="mc:dimen"/>
+
+        <xs:attribute name="id" type="mc:id"/>
+        <xs:attribute name="draggable" type="xs:boolean"/>
+        <xs:attribute name="dragArea" type="mc:drag_area"/>
+        <xs:attribute name="debug" type="xs:boolean"/>
+    </xs:complexType>
+    <xs:complexType name="content_view">
+        <xs:complexContent>
+            <xs:extension base="mc:view">
+                <xs:attribute name="horizontal-gravity" type="mc:HGravity"/>
+                <xs:attribute name="vertical-gravity" type="mc:VGravity"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="text_view">
+        <xs:complexContent>
+            <xs:extension base="mc:content_view">
+                <xs:attribute name="fontSize" type="xs:float"/>
+                <xs:attribute name="color" type="mc:color"/>
+                <xs:attribute name="text" type="xs:string"/>
+                <xs:attribute name="multiline" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="button">
+        <xs:complexContent>
+            <xs:extension base="mc:text_view"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="edit_text">
+        <xs:complexContent>
+            <xs:extension base="mc:text_view"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="progress_view">
+        <xs:complexContent>
+            <xs:extension base="mc:content_view">
+                <xs:attribute name="progress_drawable" type="mc:link"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="checkbox">
+        <xs:complexContent>
+            <xs:extension base="mc:content_view">
+                <xs:attribute name="check" type="mc:link"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="focus">
+        <xs:complexContent>
+            <xs:extension base="mc:linear_layout">
+                <xs:attribute name="target" type="mc:id"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <!-- Layouts Types -->
+    <xs:complexType name="group_view">
+        <xs:complexContent>
+            <xs:extension base="mc:content_view">
+                <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="linear_layout">
+        <xs:complexContent>
+            <xs:extension base="mc:group_view">
+                <xs:attribute name="orientation" type="mc:orientation"/>
+                <xs:attribute name="spacing" type="xs:integer"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="relative_layout">
+        <xs:complexContent>
+            <xs:extension base="mc:group_view">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="scroll_view">
+        <xs:complexContent>
+            <xs:extension base="mc:content_view">
+                <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="1" processContents="lax"/>
+                </xs:sequence>
+                <xs:attribute name="scrollbar_drawable" type="mc:link"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="list_view">
+        <xs:complexContent>
+            <xs:extension base="mc:linear_layout">
+                <xs:attribute name="empty" type="mc:link"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="entity_view">
+        <xs:complexContent>
+            <xs:extension base="mc:content_view">
+                <xs:attribute name="animate" type="xs:boolean"/>
+                <xs:attribute name="rotation" type="xs:integer"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- Styles -->
+    <xs:complexType name="item">
+        <xs:complexContent mixed="true">
+            <xs:restriction base="xs:anyType">
+                <xs:attribute name="name" type="xs:string"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="style">
+        <xs:sequence>
+            <xs:element ref="mc:Item" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="mc:item" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="parent" type="mc:link"/>
+    </xs:complexType>
+    <xs:complexType name="strings">
+        <xs:sequence>
+            <xs:element ref="mc:String" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="mc:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Drawables -->
+    <xs:complexType name="drawable">
+    </xs:complexType>
+    <xs:complexType name="bitmap_drawable">
+        <xs:complexContent>
+            <xs:extension base="mc:drawable">
+                <xs:attribute name="width" type="mc:dimen"/>
+                <xs:attribute name="height" type="mc:dimen"/>
+                <xs:attribute name="background" type="mc:link"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="color_drawable">
+        <xs:complexContent>
+            <xs:extension base="mc:drawable">
+                <xs:attribute name="width" type="mc:dimen"/>
+                <xs:attribute name="height" type="mc:dimen"/>
+                <xs:attribute name="color" type="mc:color"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="debug_drawable">
+        <xs:complexContent>
+            <xs:extension base="mc:color_drawable"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="ellipse_drawable">
+        <xs:complexContent>
+            <xs:extension base="mc:color_drawable"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="nine_patch_drawable">
+        <xs:complexContent>
+            <xs:extension base="mc:drawable">
+                <xs:attribute name="width" type="mc:dimen"/>
+                <xs:attribute name="height" type="mc:dimen"/>
+                <xs:attribute name="src" type="mc:link"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="rounded_corner_drawable">
+        <xs:complexContent>
+            <xs:extension base="mc:color_drawable">
+                <xs:attribute name="radius" type="mc:dimen"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="state_drawable">
+        <xs:complexContent>
+            <xs:extension base="mc:drawable">
+                <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="text_drawable">
+        <xs:complexContent>
+            <xs:extension base="mc:drawable">
+                <xs:attribute name="width" type="mc:dimen"/>
+                <xs:attribute name="height" type="mc:dimen"/>
+                <xs:attribute name="color" type="mc:color"/>
+                <xs:attribute name="fontSize" type="xs:integer"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- Elements -->
+    <xs:element name="TextView" type="mc:text_view"/>
+    <xs:element name="Button" type="mc:button"/>
+    <xs:element name="EditText" type="mc:edit_text"/>
+    <xs:element name="ProgressView" type="mc:progress_view"/>
+    <xs:element name="LinearLayout" type="mc:linear_layout"/>
+    <xs:element name="RelativeLayout" type="mc:relative_layout"/>
+    <xs:element name="ScrollView" type="mc:scroll_view"/>
+    <xs:element name="ListView" type="mc:list_view"/>
+    <xs:element name="item" type="mc:item"/>
+    <xs:element name="style" type="mc:style"/>
+    <xs:element name="Item" type="mc:item"/>
+    <xs:element name="Style" type="mc:style"/>
+    <xs:element name="EntityView" type="mc:entity_view"/>
+    <xs:element name="strings" type="mc:strings"/>
+    <xs:element name="Strings" type="mc:strings"/>
+    <xs:element name="String" type="mc:item"/>
+    <xs:element name="string" type="mc:item"/>
+    <xs:element name="CheckBox" type="mc:checkbox"/>
+    <xs:element name="Focus" type="mc:focus"/>
+
+    <!-- Drawables -->
+
+    <!-- attributes -->
+    <xs:attribute name="id" type="mc:link"/>
+</xs:schema>
