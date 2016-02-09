@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://onkiup.com/minecraft/xml"
+           xmlns:mt="http://onkiup.com/minecraft/types">
+
+    <xs:import schemaLocation="../minedroid-xsd-types.xsd" namespace="http://onkiup.com/minecraft/types"/>
+
+    <!-- Styles -->
+    <xs:complexType name="item">
+        <xs:complexContent mixed="true">
+            <xs:restriction base="xs:anyType">
+                <xs:attribute name="name" type="xs:string"/>
+            </xs:restriction>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="style">
+        <xs:sequence>
+            <xs:element ref="Item" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element ref="item" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="parent" type="mt:link"/>
+    </xs:complexType>
+
+
+    <xs:element name="item" type="item"/>
+    <xs:element name="style" type="style"/>
+    <xs:element name="Item" type="item"/>
+    <xs:element name="Style" type="style"/>
+</xs:schema>

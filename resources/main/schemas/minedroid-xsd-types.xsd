@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://onkiup.com/minecraft/types">
+
+    <!-- Custom types -->
+    <xs:simpleType name="link">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="@(minedroid:)?(id|layout|style|drawable|string|array|plural|dimen)/\w[\w_\d]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="id">
+        <xs:restriction base="link">
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="name">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\w[\w_\d]+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="angle">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="0"/>
+            <xs:maxInclusive value="359"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="relative_link">
+        <xs:union memberTypes="link">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="parent"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
+    <xs:simpleType name="dimen">
+        <xs:union>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="(wrap_content)|(match_parent)|(\d+)|(@(minedroid:)?dimen/\w[\w_\d]+)"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="wrap_content"/>
+                    <xs:enumeration value="match_parent"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:union>
+    </xs:simpleType>
+    <xs:simpleType name="ratio">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d+:\d+"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="color">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[\da-fA-F]{0,8}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="string">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(@(minedroid:)?string/\w[\w_\d]+|.*)"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="drag_area">
+        <xs:restriction base="id">
+            <xs:pattern value="(screen|@(minedroid:)?id/\w[\w_\d]+)"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- Enums -->
+    <xs:simpleType name="HGravity">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="left"/>
+            <xs:enumeration value="center"/>
+            <xs:enumeration value="right"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="VGravity">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="top"/>
+            <xs:enumeration value="center"/>
+            <xs:enumeration value="bottom"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="orientation">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="horizontal"/>
+            <xs:enumeration value="vertical"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ViewState">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="default"/>
+            <xs:enumeration value="hover"/>
+            <xs:enumeration value="pressed"/>
+            <xs:enumeration value="selected"/>
+            <xs:enumeration value="focused"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <!-- 1.3.1 -->
+    <xs:simpleType name="link_drawable">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="(@(minedroid:)?drawable/\w[\w_\d]+|.*)"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

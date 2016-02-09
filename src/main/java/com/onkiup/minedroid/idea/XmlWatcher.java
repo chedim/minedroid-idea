@@ -46,6 +46,7 @@ public class XmlWatcher implements ModuleComponent, VirtualFileListener {
 
     public void moduleAdded() {
         VirtualFileManager.getInstance().addVirtualFileListener(this);
+        scheduleBuilder();
     }
 
     @Override
@@ -56,38 +57,31 @@ public class XmlWatcher implements ModuleComponent, VirtualFileListener {
     @Override
     public void contentsChanged(@NotNull VirtualFileEvent virtualFileEvent) {
         if (!virtualFileEvent.getFileName().endsWith(".xml")) return;
-        if (buildTask != null) {
-            buildTask.cancel();
-        }
-
-        Timer t = new Timer();
-        t.schedule(buildTask = new TimerTask() {
-            @Override
-            public void run() {
-                Builder.build(mModule);
-                buildTask = null;
-            }
-        }, 1000);
+        scheduleBuilder();
     }
 
     @Override
     public void fileCreated(@NotNull VirtualFileEvent virtualFileEvent) {
-
+        if (!virtualFileEvent.getFileName().endsWith(".xml")) return;
+        scheduleBuilder();
     }
 
     @Override
     public void fileDeleted(@NotNull VirtualFileEvent virtualFileEvent) {
-
+        if (!virtualFileEvent.getFileName().endsWith(".xml")) return;
+        scheduleBuilder();
     }
 
     @Override
-    public void fileMoved(@NotNull VirtualFileMoveEvent virtualFileMoveEvent) {
-
+    public void fileMoved(@NotNull VirtualFileMoveEvent event) {
+        if (!event.getFileName().endsWith(".xml")) return;
+        scheduleBuilder();
     }
 
     @Override
-    public void fileCopied(@NotNull VirtualFileCopyEvent virtualFileCopyEvent) {
-
+    public void fileCopied(@NotNull VirtualFileCopyEvent event) {
+        if (!event.getFileName().endsWith(".xml")) return;
+        scheduleBuilder();
     }
 
     @Override
@@ -107,5 +101,21 @@ public class XmlWatcher implements ModuleComponent, VirtualFileListener {
 
     @Override
     public void beforeFileMovement(@NotNull VirtualFileMoveEvent virtualFileMoveEvent) {
+    }
+
+
+    private void scheduleBuilder() {
+        if (buildTask != null) {
+            buildTask.cancel();
+        }
+
+        Timer t = new Timer();
+        t.schedule(buildTask = new TimerTask() {
+            @Override
+            public void run() {
+                Builder.build(mModule);
+                buildTask = null;
+            }
+        }, 1000);
     }
 }

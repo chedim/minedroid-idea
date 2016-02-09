@@ -1,5 +1,5 @@
 <ScrollView
-        xmlns="http://onkiup.com/minecraft/xml"
+        xmlns="http://onkiup.com/minecraft/views"
         width="match_parent" height="match_parent" margin="20">
     <LinearLayout alignTop="parent" spacing="5" margin="10"
                   width="match_parent" height="wrap_content">

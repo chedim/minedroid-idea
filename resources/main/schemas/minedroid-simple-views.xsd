@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://onkiup.com/minecraft/simple_views"
+           xmlns:mt="http://onkiup.com/minecraft/types">
+
+    <xs:import schemaLocation="minedroid-xsd-types.xsd" namespace="http://onkiup.com/minecraft/types"/>
+
+    <!-- Views -->
+    <xs:complexType name="view">
+        <xs:attribute name="background" type="mt:link"/>
+        <xs:attribute name="width" type="mt:dimen"/>
+        <xs:attribute name="height" type="mt:dimen"/>
+
+        <xs:attribute name="alignLeft" type="mt:relative_link"/>
+        <xs:attribute name="toRightOf" type="mt:relative_link"/>
+        <xs:attribute name="alignCenter" type="mt:relative_link"/>
+        <xs:attribute name="alignRight" type="mt:relative_link"/>
+        <xs:attribute name="toLeftOf" type="mt:relative_link"/>
+
+        <xs:attribute name="alignTop" type="mt:relative_link"/>
+        <xs:attribute name="below" type="mt:relative_link"/>
+        <xs:attribute name="alignMiddle" type="mt:relative_link"/>
+        <xs:attribute name="alignBottom" type="mt:relative_link"/>
+        <xs:attribute name="above" type="mt:relative_link"/>
+
+        <xs:attribute name="margin" type="mt:dimen"/>
+        <xs:attribute name="margin-left" type="mt:dimen"/>
+        <xs:attribute name="margin-right" type="mt:dimen"/>
+        <xs:attribute name="margin-top" type="mt:dimen"/>
+        <xs:attribute name="margin-bottom" type="mt:dimen"/>
+
+        <xs:attribute name="padding" type="mt:dimen"/>
+        <xs:attribute name="padding-left" type="mt:dimen"/>
+        <xs:attribute name="padding-right" type="mt:dimen"/>
+        <xs:attribute name="padding-top" type="mt:dimen"/>
+        <xs:attribute name="padding-bottom" type="mt:dimen"/>
+
+        <xs:attribute name="id" type="mt:id"/>
+        <xs:attribute name="draggable" type="xs:boolean"/>
+        <xs:attribute name="dragArea" type="mt:drag_area"/>
+        <xs:attribute name="debug" type="xs:boolean"/>
+    </xs:complexType>
+    <xs:complexType name="content_view">
+        <xs:complexContent>
+            <xs:extension base="view">
+                <xs:attribute name="horizontal-gravity" type="mt:HGravity"/>
+                <xs:attribute name="vertical-gravity" type="mt:VGravity"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="text_view">
+        <xs:complexContent>
+            <xs:extension base="content_view">
+                <xs:attribute name="fontSize" type="xs:float"/>
+                <xs:attribute name="color" type="mt:color"/>
+                <xs:attribute name="text" type="xs:string"/>
+                <xs:attribute name="multiline" type="xs:boolean"/>
+                <xs:attribute name="fontName" type="xs:string"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="button">
+        <xs:complexContent>
+            <xs:extension base="text_view"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="edit_text">
+        <xs:complexContent>
+            <xs:extension base="text_view"/>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="progress_view">
+        <xs:complexContent>
+            <xs:extension base="content_view">
+                <xs:attribute name="progress_drawable" type="mt:link"/>
+                <xs:attribute name="max" type="xs:integer"/>
+                <xs:attribute name="value" type="xs:integer"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="checkbox">
+        <xs:complexContent>
+            <xs:extension base="content_view">
+                <xs:attribute name="check" type="mt:link"/>
+                <xs:attribute name="value" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="entity">
+        <xs:complexContent>
+            <xs:extension base="content_view">
+                <xs:attribute name="rotation" type="mt:angle"/>
+                <xs:attribute name="animate" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="vanilla_gui">
+        <xs:complexContent>
+            <xs:extension base="content_view">
+
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:element name="TextView" type="text_view"/>
+    <xs:element name="Button" type="button"/>
+    <xs:element name="EditText" type="edit_text"/>
+    <xs:element name="ProgressView" type="progress_view"/>
+    <xs:element name="CheckBox" type="checkbox"/>
+    <xs:element name="Entity" type="entity"/>
+    <xs:element name="VanillaGui" type="vanilla_gui"/>
+    <xs:element name="View" type="view"/>
+</xs:schema>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Plurals xmlns="http://onkiup.com/minecraft/xml/resources">
+    <plural>
+        <item quantity="1">Один</item>
+        <item quantity="2">два</item>
+        <item quantity="3">два</item>
+    </plural>
+</Plurals>

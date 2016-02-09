@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://onkiup.com/minecraft/xml">
+
+    <xs:include schemaLocation="md/minedroid-drawables.xsd"/>
+    <xs:include schemaLocation="md/minedroid-views.xsd"/>
+    <xs:include schemaLocation="md/minedroid-resources.xsd"/>
+    <xs:include schemaLocation="md/minedroid-styles.xsd"/>
+
+    <!--<xs:import schemaLocation="./minedroid-drawables.xsd" namespace="http://onkiup.com/minecraft/xml/drawables"/>-->
+    <!--<xs:import schemaLocation="./minedroid-views.xsd" namespace="http://onkiup.com/minecraft/xml/views"/>-->
+    <!--<xs:import schemaLocation="./minedroid-resources.xsd" namespace="http://onkiup.com/minecraft/xml/resources"/>-->
+    <!--<xs:import schemaLocation="./minedroid-styles.xsd" namespace="http://onkiup.com/minecraft/xml/styles"/>-->
+
+    <!-- legacy -->
+    <!--<xs:group name="state_children_drawables">-->
+        <!--<xs:element name="Bitmap" type="md:state_bitmap_drawable"/>-->
+        <!--<xs:element name="Color" type="md:state_color_drawable"/>-->
+        <!--<xs:element name="Debug" type="md:state_debug_drawable"/>-->
+        <!--<xs:element name="Ellipse" type="md:state_ellipse_drawable"/>-->
+        <!--<xs:element name="NinePatch" type="md:state_nine_patch_drawable"/>-->
+        <!--<xs:element name="RoundedCorner" type="md:state_rounded_corner_drawable"/>-->
+        <!--<xs:element name="Text" type="md:state_text_drawable"/>-->
+    <!--</xs:group>-->
+    <!--<xs:complexType name="state_drawable">-->
+        <!--<xs:complexContent>-->
+            <!--<xs:extension base="md:drawable">-->
+                <!--<xs:sequence>-->
+                    <!--<xs:group ref="md:state_children_drawables"/>-->
+                <!--</xs:sequence>-->
+            <!--</xs:extension>-->
+        <!--</xs:complexContent>-->
+    <!--</xs:complexType>-->
+
+
+    <!--&lt;!&ndash; Elements &ndash;&gt;-->
+    <!--<xs:element name="Bitmap" type="md:bitmap_drawable"/>-->
+    <!--<xs:element name="Color" type="md:color_drawable"/>-->
+    <!--<xs:element name="Debug" type="md:debug_drawable"/>-->
+    <!--<xs:element name="Ellipse" type="md:ellipse_drawable"/>-->
+    <!--<xs:element name="NinePatch" type="md:nine_patch_drawable"/>-->
+    <!--<xs:element name="RoundedCorner" type="md:rounded_corner_drawable"/>-->
+    <!--<xs:element name="Text" type="md:text_drawable"/>-->
+    <!--<xs:element name="State" type="mc:state_drawable"/>-->
+
+</xs:schema>

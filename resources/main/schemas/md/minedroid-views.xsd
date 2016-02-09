@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://onkiup.com/minecraft/xml"
+           xmlns:mt="http://onkiup.com/minecraft/types">
+
+    <xs:import schemaLocation="../minedroid-xsd-types.xsd" namespace="http://onkiup.com/minecraft/types"/>
+    <xs:include schemaLocation="minedroid-simple-views.xsd"/>
+
+    <!-- Layouts Types -->
+    <xs:complexType name="group_view">
+        <xs:complexContent>
+            <xs:extension base="content_view">
+                <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="unbounded" processContents="lax"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="linear_layout">
+        <xs:complexContent>
+            <xs:extension base="group_view">
+                <xs:attribute name="orientation" type="mt:orientation"/>
+                <xs:attribute name="spacing" type="xs:integer"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="relative_layout">
+        <xs:complexContent>
+            <xs:extension base="group_view">
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="scroll_view">
+        <xs:complexContent>
+            <xs:extension base="content_view">
+                <xs:sequence>
+                    <xs:any minOccurs="0" maxOccurs="1" processContents="lax"/>
+                </xs:sequence>
+                <xs:attribute name="scrollbar_drawable" type="mt:link"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="list_view">
+        <xs:complexContent>
+            <xs:extension base="linear_layout">
+                <xs:attribute name="empty" type="mt:link"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="entity_view">
+        <xs:complexContent>
+            <xs:extension base="content_view">
+                <xs:attribute name="animate" type="xs:boolean"/>
+                <xs:attribute name="rotation" type="xs:integer"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="focus">
+        <xs:complexContent>
+            <xs:extension base="linear_layout">
+                <xs:attribute name="target" type="mt:id"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+
+    <xs:element name="LinearLayout" type="linear_layout"/>
+    <xs:element name="RelativeLayout" type="relative_layout"/>
+    <xs:element name="ScrollView" type="scroll_view"/>
+    <xs:element name="ListView" type="list_view"/>
+    <xs:element name="Focus" type="focus"/>
+</xs:schema>

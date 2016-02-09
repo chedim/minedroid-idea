@@ -1,0 +1,78 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://onkiup.com/minecraft/resources"
+           xmlns:mt="http://onkiup.com/minecraft/types">
+
+    <xs:import schemaLocation="minedroid-xsd-types.xsd" namespace="http://onkiup.com/minecraft/types"/>
+
+    <xs:complexType name="string_value">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="mt:name" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="type_strings">
+        <xs:sequence>
+            <xs:element name="string" type="string_value" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="array_item">
+        <xs:simpleContent>
+            <xs:extension base="xs:string"/>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="type_array" mixed="false">
+        <xs:sequence>
+            <xs:element name="item" type="array_item" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="mt:name" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="type_arrays" mixed="false">
+        <xs:sequence>
+            <xs:element name="array" type="type_array"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="quantity">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="quantity" type="xs:integer" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="plural">
+        <xs:sequence>
+            <xs:element name="item" type="quantity"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="mt:name"/>
+    </xs:complexType>
+    <xs:complexType name="plurals">
+        <xs:sequence>
+            <xs:element name="plural" type="plural"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="dimen">
+        <xs:simpleContent>
+            <xs:extension base="xs:integer">
+                <xs:attribute name="name" type="mt:name" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+    <xs:complexType name="dimens">
+        <xs:sequence>
+            <xs:element name="dimen" type="dimen" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- Elements -->
+    <xs:element name="strings" type="type_strings"/>
+    <xs:element name="Strings" type="type_strings"/>
+    <xs:element name="Arrays" type="type_arrays"/>
+    <xs:element name="arrays" type="type_arrays"/>
+    <xs:element name="Plurals" type="plurals"/>
+    <xs:element name="plurals" type="plurals"/>
+    <xs:element name="Dimens" type="dimens"/>
+    <xs:element name="dimens" type="dimens"/>
+</xs:schema>
